@@ -201,3 +201,22 @@ When stuck protocol activates: "phi-stuck: activating stuck protocol — [observ
 When reporting probe results: "phi-probe: [hypothesis] → [raw result] → [decision: kept as permanent test / discarded]"
 
 When escalating from stuck state: "phi-stuck-escalation: tested H1, H2 — neither confirmed. Observations: [...]. Need guidance from [Architect/Strategist/coordinator]."
+
+## Lessons that cost something (four-defect PR, 2026-09-23)
+
+- **A "check passed" claim carries the command and one line of real output.** Twice, "no new flake8
+  findings" was reported after diffing two outputs that were both the same error message (the repo's
+  config is `.flake8`, not `setup.cfg`; flake8 had never run). Evolution caught it; the correction
+  had to be written into the handoff. Read the repo's real lint config before claiming lint results,
+  and cite it.
+- **Never `git stash` in a worktree.** The stash list is shared across every worktree of a repository.
+  A failed `stash push` followed by `stash pop` tried to apply another branch's WIP; only git's own
+  refusal stopped it. Compare against `git show HEAD:<path>` copies instead.
+- **Mutation-check your own guards before handoff.** Remove each clause on a copy, name the test that
+  fails, restore, verify with `cmp`. When this was done (D1), Evolution verified in minutes; when it
+  was not (D3), Evolution had to discover which clause each test pinned.
+- **Report plan-vs-reality as its own section**, including tests that were planned red and were not,
+  counts that differ, and rules you replaced. Every one of those deltas in this run was accepted; none
+  would have been if it had been absorbed silently and found later.
+- **A logger you create with `get_logger(__name__)` may have no handler.** The warning you add goes
+  nowhere and the import prints an error. Take the calling analyzer's logger.

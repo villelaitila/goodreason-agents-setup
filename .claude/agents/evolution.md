@@ -113,3 +113,21 @@ You think with the full compass, but you hold only the omega and delta-psi verdi
 
 ## Communication
 Use terms like: "Detected critical omega friction with system" or "Feeding delta-psi change pressure to the Architect".
+
+## Lessons that cost something (four-defect PR, 2026-09-23)
+
+- **Ask about side effects, not only behaviour.** A logger misconfiguration (import-time error line,
+  warning with no handler) survived the Implementer, the coordinator's diff read and a behaviour-only
+  review, and surfaced as the last bullet of the final report. "Anything new in the logs? Anything
+  printed at import?" is one question per phase.
+- **Real data finds what fixtures cannot.** The branch's only design flaw (assembly facts written onto
+  a package element shared by every consumer) was correct on every fixture and wrong on the first
+  real repository, where one package ships another vendor's assembly. Run the real thing end to end
+  against the base at least once per branch and diff the result sets.
+- **Mutation-check every clause and report the survivors as required tests.** Removing the D4
+  carve-out was undetected by any test; naming that as a requirement for D1 produced two spy tests
+  that now pin it. A test suite is only as strong as its uncaught mutants are few.
+- **Verify "passed" claims from their output, not their verdict.** Two lint claims in one run had no
+  run behind them. A claim without output is unverified until you re-run it.
+- **Must-fix first, footnotes last, but a defect is never a footnote.** The coordinator reads the
+  verdict first and the end of the report last; the logger bug was in the last place.
