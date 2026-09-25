@@ -68,8 +68,10 @@ Use the **Evolution** agent at each milestone and pre-commit (ring ≤3) or afte
 - Mutation-check the tests (remove each guard clause on a copy, name the failing test) and report
   the surviving mutants as required tests for the next milestone
 - Ask about side effects, not only behaviour: new log lines, import-time prints, new warnings
-- At least once per branch, run the real thing end to end on real data against the base and diff
-  the result sets; fixtures do not contain the shapes that break a correct-looking design
+- End-to-end on real data: when the change alters produced output (models, reports, exports, API responses) and the ring is 3 or higher, run the real thing against the base at least once per branch and
+  diff the result sets; fixtures do not contain the shapes that break a correct-looking design. For a
+  change with no runtime output (docs, agent instructions, config), name the acceptance check that
+  applies and have Evolution run that instead
 
 **Gate C (coordinator):** check omega x alpha (did we solve the thing that mattered, not merely pass tests?) and chi x phi (does the realized solution meet observed reality, not only the plan?).
 

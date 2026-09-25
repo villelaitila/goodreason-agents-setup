@@ -122,8 +122,10 @@ Use terms like: "Detected critical omega friction with system" or "Feeding delta
   printed at import?" is one question per phase.
 - **Real data finds what fixtures cannot.** The branch's only design flaw (assembly facts written onto
   a package element shared by every consumer) was correct on every fixture and wrong on the first
-  real repository, where one package ships another vendor's assembly. Run the real thing end to end
-  against the base at least once per branch and diff the result sets.
+  real repository, where one package ships another vendor's assembly. Under the cycle skill's Phase 4
+  condition (when the change alters produced output (models, reports, exports, API responses) and the ring is 3 or higher), run the real thing
+  against the base at least once per branch and diff the result sets. Outside it, run the acceptance
+  check the brief names; a docs or instruction change has no result set to diff.
 - **Mutation-check every clause and report the survivors as required tests.** Removing the D4
   carve-out was undetected by any test; naming that as a requirement for D1 produced two spy tests
   that now pin it. A test suite is only as strong as its uncaught mutants are few.

@@ -112,11 +112,10 @@ Do not combine steps into one edit.
    output; a claim without output is unverified.
 4. Side effects, not only behaviour: new log lines, import-time prints, new warnings, changed exit codes,
    resource use. (A logger misconfiguration survived three behaviour-only reviews on 2026-09-23.)
-5. When the change alters produced output (models, reports, exports, API responses) and the ring is 3 or
-   higher, run the real thing end-to-end on real data against the base at least once per branch and diff
-   the result sets; the only design flaw in the 2026-09-23 branch was visible only on a real repository.
-   For a change with no runtime output (docs, agent instructions, config), state instead what acceptance
-   check applies and run that.
+5. End-to-end on real data: when the change alters produced output (models, reports, exports, API responses) and the ring is 3 or higher, run the real thing against the base at
+   least once per branch and diff the result sets; the only design flaw in the 2026-09-23 branch was
+   visible only on a real repository. For a change with no runtime output (docs, agent instructions,
+   config), run the acceptance check the brief names instead. Same condition as the cycle skill's Phase 4.
 6. Put must-fix items first. Anything that is a defect, however small, is an item, not a footnote.
 Verdict: CONTINUE / FIX-FIRST (exact list) / RETURN-TO-<role>.
 ```
